@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './Components/Navbar';
+import { Routes, Route, useLocation } from "react-router-dom";
+import SignUp from "./Login/LoginPage";
+import Register from "./Login/RegisterPage";
+import Cart from './Pages/Cart';
 
 function App() {
+  const location=useLocation();
+  const sholudHidden=location.pathname==="/login"||location.pathname==="/register" || location.pathname.startsWith("/admin") 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!sholudHidden&&<Navbar/>}
+      <Routes>
+
+      {/* login,register */}
+        <Route path="/login" element={<SignUp />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
+        
+        
+      </Routes>
     </div>
   );
 }
